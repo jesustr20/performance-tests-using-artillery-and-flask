@@ -86,41 +86,8 @@ https://www.artillery.io/docs/guides/getting-started/writing-your-first-test
 
 La cual quedaria de esta manera.
 
-config:
-  target: "http://127.0.0.1:5000"
-  phases:
-    - duration: 10
-      arrivalRate: 5
-      name: Warm up
-    - duration: 20
-      arrivalRate: 5
-      rampTo: 50
-      name: Ramp up load
-    - duration: 60
-      arrivalRate: 50
-      name: Sustained load
-  payload:
-    path: "ids.csv"
-    fields:
-      - "id"
-
-scenarios:
-  - name: "Post & Get ID"
-    flow:
-    - post:
-        url: "/api/v1/post"
-        json:
-          id: "{{ id }}"
-        capture:
-          - json: "$.response.id"
-            as: "userid"
-    - think: 2
-    - get:
-        url: "/api/v1/get?id={{ userid }}"
-        capture:
-          - json: "$.response.id"
-            as: "userid2"
-            
+![image](https://user-images.githubusercontent.com/13369296/170795124-405847d5-4a60-4ed5-8f2e-b5319dd0a2fb.png)
+    
 Podremos correr el archivo "test.yaml" con el siguiente comando:
 
 artillery run test.yml
